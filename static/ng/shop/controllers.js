@@ -5,12 +5,27 @@ angular.module('shop.controllers', [
 .controller('StoreSelect', function($scope, FruitexAPI) {
   FruitexAPI.stores.get().$promise
   .then(function(res) {
+    $log.info('List of store loaded');
     $scope.stores = res.results;
   });
 })
 .controller('StoreHome', function($scope, $stateParams, FruitexAPI, $log){
+  var store = {};
   var slug = $stateParams.slug;
-  $scope.store = {
-    slug: slug
-  };
+  FruitexAPI.stores.query({ slug: slug }).$promise
+  .then(function(res) {
+    var stores = res.results;
+    if (_.isEmpty(stores)) {
+      $scope.error = "Unknown store name";
+      return;
+    }
+    $log.info('Store ' + store.name + ' loaded');
+
+    store = $scope.store = stores[0];
+    return FruitexAPI.stores.categories.get({ id: store.id }).$promise;
+  })
+  .then(function(res) {
+    $log.info('Store categories loaded');
+    store.categories = res.results;
+  });
 });

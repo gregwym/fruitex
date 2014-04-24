@@ -6,6 +6,7 @@ angular.module('common.resources', ['ngResource'])
   this.stores = $resource(this.baseUrl + '/stores/:id',
     {id: '@id'},
     {'query': {method: 'GET', isArray: false }});
+  this.stores.categories = $resource(this.baseUrl + '/stores/:id/categories', {id: '@id'});
 
   /* Invoices */
   this.invoices = $resource(this.baseUrl + '/invoices/:id',
