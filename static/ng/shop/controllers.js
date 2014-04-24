@@ -2,7 +2,7 @@ angular.module('shop.controllers', [
   'common.resources',
   'shop.directive'
 ])
-.controller('StoreSelect', function($scope, FruitexAPI) {
+.controller('StoreSelect', function($scope, FruitexAPI, $log) {
   FruitexAPI.stores.get().$promise
   .then(function(res) {
     $log.info('List of store loaded');
