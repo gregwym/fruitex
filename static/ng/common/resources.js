@@ -2,6 +2,11 @@ angular.module('common.resources', ['ngResource'])
 .service('FruitexAPI', function($resource){
   this.baseUrl = '/api';
 
+  /* Stores */
+  this.stores = $resource(this.baseUrl + '/stores/:id',
+    {id: '@id'},
+    {'query': {method: 'GET', isArray: false }});
+
   /* Invoices */
   this.invoices = $resource(this.baseUrl + '/invoices/:id',
     {id: '@id'},
