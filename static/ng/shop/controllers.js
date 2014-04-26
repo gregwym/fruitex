@@ -19,9 +19,9 @@ angular.module('shop.controllers', [
       $scope.error = "Unknown store name";
       return;
     }
-    $log.info('Store ' + store.name + ' loaded');
 
     store = $scope.store = stores[0];
+    $log.info('Store ' + store.name + ' loaded');
     return FruitexAPI.stores.categories.get({ id: store.id }).$promise;
   })
   .then(function(res) {
